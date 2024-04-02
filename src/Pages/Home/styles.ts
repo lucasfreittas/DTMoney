@@ -11,6 +11,7 @@ export const ContentContainer = styled.section`
     max-width: 112rem;
     width: 100%;
     margin-top: -8rem;
+
 `;
 
 export const SearchContainer = styled.div`
@@ -32,6 +33,10 @@ export const SearchContainer = styled.div`
         &::placeholder{
             color: ${props => props.theme["gray-500"]};
         };
+
+        &:focus{
+            border: 1px solid ${props => props.theme["green-300"]};
+        };
     };
 
     > button {
@@ -46,21 +51,57 @@ export const SearchContainer = styled.div`
         border-radius: 0.6rem;
         line-height: 160%;
         font-weight: 700;
+        transition: all 0.05s ease-in-out;
+
+        &:hover{
+            background-color: ${props => props.theme["green-500"]};
+            color: ${props => props.theme.white};
+        };
+
+        &:active{
+            transform: scale(0.98);
+        };
     };
 `;
 
-export const TableData = styled.table`
+interface TableContentProps {
+    transactionType?: 'income' | 'outcome'
+};
+
+export const TableData = styled.table<TableContentProps>`
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 0.5rem;
     margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+`;
 
-    td {
+export const TableRow = styled.tr<TableContentProps>`
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 0.5fr;
+
+    :nth-child(2){
+        color: ${({ transactionType }) => 
+            transactionType === 'income' ? props => props.theme["green-300"] : props => props.theme["red-300"]
+        };
+    };
+
+    :first-child{
+        border-radius: 0.5rem 0 0 0.5rem;
+    };
+    :last-child{
+        border-radius: 0 0.5rem 0.5rem 0;
+    };
+
+    > td {   
+        width: 100%;
         padding: 2rem 3.2rem;
         background-color: ${props => props.theme["gray-700"]};
         font-size: 1.6rem;
         line-height: 160%;
         color: ${props => props.theme["gray-300"]};
-    };
-
+       };
 `;
