@@ -4,9 +4,12 @@ import { MagnifyingGlass } from '@phosphor-icons/react';
 
 import { Header } from '../../Components/Header';
 import { Dashboard } from '../../Components/Dashboard';
+import { useTransactions } from '../../Contexts/useTransactions';
 
 
 export function Home(){
+    const { transactionsList } = useTransactions();
+
     return(
         <HomeContainer>
             <Header />
@@ -17,18 +20,18 @@ export function Home(){
                         <button> <MagnifyingGlass size={20}/>Buscar</button>
                     </SearchContainer>
                     <TableData>
-                        <TableRow transactionType='income'>
-                            <td>Desenvolvimento de site</td>
-                            <td>R$ 12.000,00</td>
-                            <td>Venda</td>
-                            <td>13/04/2022</td>
-                        </TableRow>
-                        <TableRow transactionType='outcome'>
-                            <td>Hamburguer</td>
-                            <td>- R$ 59,00</td>
-                            <td>Alimentação</td>
-                            <td>12/04/2022</td>
-                        </TableRow>
+                        <tbody>
+                            { transactionsList && (
+                                transactionsList.map((transaction) => (
+                                    <TableRow transactionType={transaction.type}>
+                                        <td>{transaction.description}</td>
+                                        <td>{transaction.price}</td>
+                                        <td>{transaction.category}</td>
+                                        <td>{transaction.createdAt}</td>
+                                    </TableRow>
+                                ))
+                            )}
+                        </tbody>
                     </TableData>
             </ContentContainer> 
         </HomeContainer>

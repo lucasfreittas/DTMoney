@@ -6,12 +6,15 @@ import { defaultTheme } from './Styles/Themes/default'
 import GlobalStyle from './Styles/global';
 
 import { Home } from './Pages/Home'
+import { UserTransactionsProvider } from './Contexts/useTransactions';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
-        <Home />
+        <UserTransactionsProvider>
+          <Home />
+        </UserTransactionsProvider>       
     </ThemeProvider>
   </React.StrictMode>,
 )

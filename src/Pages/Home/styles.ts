@@ -65,17 +65,21 @@ export const SearchContainer = styled.div`
 `;
 
 interface TableContentProps {
-    transactionType?: 'income' | 'outcome'
+    transactionType?: 'income' | 'outcome' | undefined
 };
 
 export const TableData = styled.table<TableContentProps>`
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 0.5rem;
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+
+    > tbody{
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 0.5rem;
+        margin-top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    };
 `;
 
 export const TableRow = styled.tr<TableContentProps>`
