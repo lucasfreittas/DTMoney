@@ -5,6 +5,7 @@ import { MagnifyingGlass } from '@phosphor-icons/react';
 import { Header } from '../../Components/Header';
 import { Dashboard } from '../../Components/Dashboard';
 import { useTransactions } from '../../Contexts/useTransactions';
+import { currencyFormater, dateFormater } from '../../Utils/formatter';
 
 
 export function Home(){
@@ -25,9 +26,9 @@ export function Home(){
                                 transactionsList.map((transaction) => (
                                     <TableRow transactionType={transaction.type}>
                                         <td>{transaction.description}</td>
-                                        <td>{transaction.price}</td>
+                                        <td>{transaction.type === 'outcome' && '- '}{currencyFormater.format(transaction.price)}</td>
                                         <td>{transaction.category}</td>
-                                        <td>{transaction.createdAt}</td>
+                                        <td>{dateFormater.format(new Date(transaction.createdAt))}</td>
                                     </TableRow>
                                 ))
                             )}
