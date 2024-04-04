@@ -26,7 +26,10 @@ export function Home(){
                                 transactionsList.map((transaction) => (
                                     <TableRow transactionType={transaction.type}>
                                         <td>{transaction.description}</td>
-                                        <td>{transaction.type === 'outcome' && '- '}{currencyFormater.format(transaction.price)}</td>
+                                        <td>
+                                            {transaction.type === 'outcome' && '- '}
+                                            {currencyFormater.format(transaction.price)}
+                                        </td>
                                         <td>{transaction.category}</td>
                                         <td>{dateFormater.format(new Date(transaction.createdAt))}</td>
                                     </TableRow>
