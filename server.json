@@ -1,20 +1,28 @@
-{ 
-    "dataBase": [
-        {
-            "id": 1,
-            "description": "Desenvolvimento de site",
-            "type": "income",
-            "category": "Venda",
-            "price": 12000,
-            "createdAt": "2024-04-02T20:34:44.505Z"
-        },
-        {
-            "id": 2,
-            "description": "Hamburguer",
-            "type": "outcome",
-            "category": "Alimentação",
-            "price": 59,
-            "createdAt": "2024-04-01T09:34:44.505Z"
-        }
-    ]
+{
+  "dataBase": [
+    {
+      "id": "1",
+      "description": "Desenvolvimento de site",
+      "type": "income",
+      "category": "Venda",
+      "price": 12000,
+      "createdAt": "2024-04-02T20:34:44.505Z"
+    },
+    {
+      "id": "2",
+      "description": "Hamburguer",
+      "type": "outcome",
+      "category": "Alimentação",
+      "price": 59,
+      "createdAt": "2024-04-01T09:34:44.505Z"
+    },
+    {
+      "id": "2f08",
+      "description": "Teste",
+      "price": 2,
+      "category": "Teste",
+      "type": "income",
+      "createdAt": "2024-04-05T00:02:00.222Z"
+    }
+  ]
 }

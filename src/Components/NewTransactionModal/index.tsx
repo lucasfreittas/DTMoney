@@ -1,10 +1,24 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import * as RadioGroup from '@radix-ui/react-radio-group';
 
 import { ModalContent, Overlay, CloseButton, TransactionType, TransactionTypeButton } from './styles';
 import { ArrowCircleDown, ArrowCircleUp, X } from '@phosphor-icons/react';
+import { useTransactions } from '../../Contexts/useTransactions';
 
 export function NewTransactionModal(){
+
+    const {addTransaction} = useTransactions();
+
+   function handleAddTransaction(){
+    const newTransaction = {
+            description: 'Teste',
+            price: 2,
+            category: 'Teste',
+            type: 'income'
+    };
+
+    addTransaction(newTransaction)
+
+   }; 
     return(
             <Dialog.Portal>
                  <Overlay />
@@ -33,7 +47,7 @@ export function NewTransactionModal(){
                             </TransactionTypeButton>
                         </TransactionType>
 
-                        <button type='submit'>Cadastrar</button>
+                        <button type='submit' onClick={handleAddTransaction}>Cadastrar</button>
                     </form>
                 </ModalContent>
             </Dialog.Portal>
