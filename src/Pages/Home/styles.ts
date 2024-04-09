@@ -14,7 +14,7 @@ export const ContentContainer = styled.section`
 
 `;
 
-export const SearchContainer = styled.div`
+export const SearchContainer = styled.form`
     display: flex;
     gap: 1.6rem;
     width: 100%;

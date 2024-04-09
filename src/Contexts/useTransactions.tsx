@@ -19,7 +19,10 @@ interface NewTransactionsType {
 
 interface UserTransactionsTypes{
     transactionsList: Transaction[],
-    addTransaction: (data: NewTransactionsType) => void
+    addTransaction: (data: NewTransactionsType) => void,
+    switchModalState: () => void,
+    isModalOpen: boolean,
+    fetchDataBaseTransactions: (query?: string) => Promise<void>,
 };
 
 interface UserTransactionsProviderProps{
@@ -31,12 +34,16 @@ export const TransactionsContext = createContext({} as UserTransactionsTypes);
 
 export function UserTransactionsProvider({children}:UserTransactionsProviderProps){
     const [ transactionsList, setTransactionsList ] = useState<Transaction[]>([]) 
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
 
-    async function fetchDataBaseTransactions(){
-        const response = await api.get('dataBase');
+    async function fetchDataBaseTransactions(query?: string){
+        const response = await api.get('dataBase', {
+            params: {
+                q: query,
+              },
+        });
 
         setTransactionsList(response.data);
-        console.log(response.data)
     };
 
     async function addTransaction(data: NewTransactionsType){
@@ -54,6 +61,11 @@ export function UserTransactionsProvider({children}:UserTransactionsProviderProp
 
     };
 
+    function switchModalState(){
+        setIsModalOpen(!isModalOpen)
+    };
+
+
     useEffect(() => {
         fetchDataBaseTransactions();
     },[fetchDataBaseTransactions])
@@ -61,7 +73,10 @@ export function UserTransactionsProvider({children}:UserTransactionsProviderProp
     return(
         <TransactionsContext.Provider value={{
             transactionsList,
-             addTransaction
+             addTransaction,
+             switchModalState,
+             isModalOpen,
+             fetchDataBaseTransactions,
         }}>
             {children}
         </TransactionsContext.Provider>

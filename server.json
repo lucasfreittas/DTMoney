@@ -17,12 +17,36 @@
       "createdAt": "2024-04-01T09:34:44.505Z"
     },
     {
-      "id": "2f08",
-      "description": "Teste",
-      "price": 2,
-      "category": "Teste",
-      "type": "income",
-      "createdAt": "2024-04-05T00:02:00.222Z"
+      "id": "dd3b",
+      "description": "Pizza de fds",
+      "price": 60,
+      "category": "Comida",
+      "type": "outcome",
+      "createdAt": "2024-04-09T00:08:13.798Z"
+    },
+    {
+      "id": "31f2",
+      "description": "Tete 2",
+      "price": 40,
+      "category": "Saida",
+      "type": "outcome",
+      "createdAt": "2024-04-09T00:22:59.010Z"
+    },
+    {
+      "id": "4ca8",
+      "description": "Testiho maneiro",
+      "price": 1,
+      "category": "ss",
+      "type": "outcome",
+      "createdAt": "2024-04-09T00:23:54.122Z"
+    },
+    {
+      "id": "b6a0",
+      "description": "testeee",
+      "price": 1,
+      "category": "1eee",
+      "type": "outcome",
+      "createdAt": "2024-04-09T00:27:36.686Z"
     }
   ]
 }

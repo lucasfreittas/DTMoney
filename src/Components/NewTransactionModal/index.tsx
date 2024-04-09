@@ -4,21 +4,41 @@ import { ModalContent, Overlay, CloseButton, TransactionType, TransactionTypeBut
 import { ArrowCircleDown, ArrowCircleUp, X } from '@phosphor-icons/react';
 import { useTransactions } from '../../Contexts/useTransactions';
 
+import { Controller, useForm } from 'react-hook-form';
+import * as zod from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+
+const newTransactionsSchema = zod.object({
+    description: zod.string(),
+    price: zod.number(),
+    category: zod.string(),
+    type: zod.enum(['income', 'outcome']),
+});
+
+type NewTransactionsInputs = zod.infer<typeof newTransactionsSchema>
+
+
 export function NewTransactionModal(){
+
+    const {switchModalState } = useTransactions();
+
+    const { control, register, handleSubmit, reset} = useForm<NewTransactionsInputs>({
+        resolver: zodResolver(newTransactionsSchema),
+        defaultValues: {
+            type: 'outcome',
+        }
+    })
 
     const {addTransaction} = useTransactions();
 
-   function handleAddTransaction(){
-    const newTransaction = {
-            description: 'Teste',
-            price: 2,
-            category: 'Teste',
-            type: 'income'
-    };
 
-    addTransaction(newTransaction)
-
+   function handleAddTransaction(data: NewTransactionsInputs){
+    addTransaction(data);
+    switchModalState();
+    reset();
    }; 
+   
     return(
             <Dialog.Portal>
                  <Overlay />
@@ -30,24 +50,34 @@ export function NewTransactionModal(){
                         <X size={24} />
                     </CloseButton>
 
-                    <form action="">
-                        <input type="text" placeholder='Descrição' required />
-                        <input type="number" placeholder='Preço' required />
-                        <input type="text" placeholder='Categoria' required />
+                    <form onSubmit={handleSubmit(handleAddTransaction)}>
+                        <input type="text" placeholder='Descrição' required {...register('description')}/>
+                        <input type="number" placeholder='Preço' required {...register('price', {valueAsNumber: true})}/>
+                        <input type="text" placeholder='Categoria' required {...register('category')}/>
+                        <Controller
+                            control={control}
+                            name="type"
+                            render={({ field }) => {
+                            return (
+                                <TransactionType
+                                onValueChange={field.onChange}
+                                value={field.value}
+                                >
+                                <TransactionTypeButton variant='income' value='income' >
+                                    <ArrowCircleUp size={24}/>
+                                    Entrada
+                                </TransactionTypeButton>
 
-                        <TransactionType>
-                            <TransactionTypeButton variant='income' value='income'>
-                                <ArrowCircleUp size={24}/>
-                                Entrada
-                            </TransactionTypeButton>
+                                <TransactionTypeButton variant='outcome' value='outcome' defaultChecked>
+                                    <ArrowCircleDown size={24}/>
+                                    Saída
+                                </TransactionTypeButton>
+                                </TransactionType>
+                            )
+                            }}
+                        />
 
-                            <TransactionTypeButton variant='outcome' value='outcome'>
-                                <ArrowCircleDown size={24}/>
-                                Saída
-                            </TransactionTypeButton>
-                        </TransactionType>
-
-                        <button type='submit' onClick={handleAddTransaction}>Cadastrar</button>
+                        <button type='submit'>Cadastrar</button>
                     </form>
                 </ModalContent>
             </Dialog.Portal>
